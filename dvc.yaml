@@ -1,0 +1,9 @@
+stages:
+  validate:
+    cmd: python -m eco.validate
+    deps: [data/penguins.csv, eco/data.py, eco/validate.py, config.json]
+    outs: [reports/data_validation.json]
+  train:
+    cmd: python -m eco.train
+    deps: [data/penguins.csv, eco/data.py, eco/train.py, eco/common.py, config.json, reports/data_validation.json]
+    metrics: [reports/candidate.json]

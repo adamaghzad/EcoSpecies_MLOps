@@ -1,0 +1,33 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.15", nodesep="0.3", ranksep="0.45"];
+node [shape=box, style="rounded,filled", fillcolor="#EDF3F8", color="#7890A6", fontname="DejaVu Sans", fontsize=11, margin="0.15"];
+edge [color="#536B83", fontname="DejaVu Sans", fontsize=9];
+data [label="CSV Palmer Penguins
+Git et DVC"];
+flow [label="Validation et entraînement
+Prefect et scikit-learn"];
+registry [label="Expériences et registre
+MLflow"];
+gate [label="Contrôles et promotion
+Décision explicite",shape=diamond];
+image [label="Bundle figé et image Docker
+CI GitHub Actions"];
+api [label="API FastAPI
+Compose ou Kubernetes"];
+client [label="Client HTTP
+Postman ou script"];
+logs [label="Journal des prédictions
+SQLite de démonstration"];
+metrics [label="Métriques techniques
+Prometheus et Grafana"];
+drift [label="Dérive et qualité avec labels
+Evidently et contrôles Python"];
+feast [label="Caractéristiques partagées
+Feast offline et online"];
+data -> flow -> registry -> gate -> image -> api;
+client -> api [label="JSON et clé"];
+api -> client [label="espèce et version"];
+api -> logs;api -> metrics;
+logs -> drift;data -> drift [label="référence"];
+feast -> client [label="caractéristiques"];
+}

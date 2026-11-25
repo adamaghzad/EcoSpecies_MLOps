@@ -1,0 +1,49 @@
+{
+  "version": "2",
+  "run_id": "60d049b050b44516aaea95c1dc1f2f8c",
+  "model_name": "EcoSpecies",
+  "algorithm": "logistic",
+  "validation_f1": 1.0,
+  "baseline_validation_f1": 0.20666666666666667,
+  "test_f1": 1.0,
+  "passed": true,
+  "data_sha256": "e07636bd8af74260099ea2f8678e2eabbf35def579940cc76f67061ee16c06c1",
+  "test_report": {
+    "Adelie": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 30.0
+    },
+    "Chinstrap": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 14.0
+    },
+    "Gentoo": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 25.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 69.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 69.0
+    }
+  },
+  "splits": {
+    "train": 206,
+    "validation": 69,
+    "test": 69
+  }
+}

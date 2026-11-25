@@ -1,0 +1,38 @@
+name: CI et construction image
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-lock.txt
+      - run: python -m eco.validate
+      - run: python -m pytest -q
+      - run: python -m eco.train
+      - name: Promouvoir dans cet environnement CI isolé
+        run: |
+          VERSION=$(python -c 'import json; print(json.load(open("reports/candidate.json"))["version"])')
+          python -m eco.promote --version "$VERSION"
+      - run: docker build -t ecospecies:ci .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: evaluation
+          path: reports/
+      - name: Publier une image immuable sur demande
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker tag ecospecies:ci "$IMAGE"
+          docker push "$IMAGE"

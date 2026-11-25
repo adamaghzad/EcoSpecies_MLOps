@@ -1,0 +1,5 @@
+feast>=0.50,<0.60
+pandas>=2.2,<3
+pyarrow>=18,<24
+scikit-learn>=1.6,<2
+requests>=2.32,<3

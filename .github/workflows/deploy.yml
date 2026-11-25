@@ -1,0 +1,23 @@
+name: CD Kubernetes local contrôlé
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: Image publique GHCR avec tag SHA ou digest
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: classroom
+    steps:
+      - uses: actions/checkout@v4
+      - name: Déployer dans le cluster déjà préparé
+        env:
+          IMAGE: ${{ inputs.image }}
+        run: |
+          kubectl -n ecospecies set image deployment/ecospecies api="$IMAGE"
+          kubectl -n ecospecies rollout status deployment/ecospecies --timeout=120s
+          kubectl -n ecospecies get pods

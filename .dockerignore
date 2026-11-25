@@ -1,0 +1,11 @@
+.git
+.venv
+mlruns
+mlartifacts
+mlflow.db*
+reports
+.env
+.state
+**/__pycache__
+infra
+feast_repo
